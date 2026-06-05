@@ -270,6 +270,10 @@ resource dbserver 'Microsoft.DBforMySQL/flexibleServers@2024-06-01-preview' = {
   ]
 }
 
+var appName = '${name}-${resourceToken}'
+var redisCacheName = '${appName}-redis'
+
+
 // The Redis cache is configured to the minimum pricing tier
 
 resource redisEnterprise 'Microsoft.Cache/redisEnterprise@2025-04-01' = {
@@ -292,8 +296,6 @@ resource redisEnterpriseDatabase 'Microsoft.Cache/redisEnterprise/databases@2025
     clusteringPolicy: 'OSSCluster'
     evictionPolicy: 'NoEviction'
   }
-}
-
 }
 
 // The App Service plan is configured to the B1 pricing tier
