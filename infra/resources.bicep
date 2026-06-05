@@ -282,7 +282,7 @@ resource redisEnterprise 'Microsoft.Cache/redisEnterprise@2025-04-01' = {
     name: 'MemoryOptimized_M10'
   }
   identity: {
-    type: 'None'
+    type: 'SystemAssigned'
   }
   properties: {
     minimumTlsVersion: '1.2'
