@@ -8,6 +8,8 @@ param databasePassword string
 param appKey string
 
 var appName = '${name}-${resourceToken}'
+var redisCacheName = '${appName}-redis'
+
 
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-01-01' = {
   location: location
@@ -269,9 +271,6 @@ resource dbserver 'Microsoft.DBforMySQL/flexibleServers@2024-06-01-preview' = {
     privateDnsZoneDB::privateDnsZoneLinkDB
   ]
 }
-
-var appName = '${name}-${resourceToken}'
-var redisCacheName = '${appName}-redis'
 
 
 // The Redis cache is configured to the minimum pricing tier
