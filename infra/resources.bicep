@@ -286,7 +286,7 @@ resource redisEnterprise 'Microsoft.Cache/redisEnterprise@2025-04-01' = {
   }
 }
 
-resource redisEnterpriseDatabase 'Microsoft.Cache/redisEnterprise/databases@2025-04-01' = {
+resource redisEnterpriseDatabase 'Microsoft.Cache/redisEnterprise/databases@2024-05-01-preview' = {
   name: 'default'
   parent: redisEnterprise
   properties: {
@@ -294,8 +294,13 @@ resource redisEnterpriseDatabase 'Microsoft.Cache/redisEnterprise/databases@2025
     port: 10000
     clusteringPolicy: 'OSSCluster'
     evictionPolicy: 'NoEviction'
+    persistence: {
+      aofEnabled: false
+      rdbEnabled: false
+    }
   }
 }
+
 
 // The App Service plan is configured to the B1 pricing tier
 resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
