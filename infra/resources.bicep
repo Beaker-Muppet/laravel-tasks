@@ -285,6 +285,8 @@ resource redisEnterprise 'Microsoft.Cache/redisEnterprise@2025-04-01' = {
     type: 'SystemAssigned'
   }
   properties: {
+    encryption: {}
+    highAvailability: 'Disabled'
     minimumTlsVersion: '1.2'
   }
 }
