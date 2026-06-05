@@ -271,20 +271,29 @@ resource dbserver 'Microsoft.DBforMySQL/flexibleServers@2024-06-01-preview' = {
 }
 
 // The Redis cache is configured to the minimum pricing tier
-resource redisCache 'Microsoft.Cache/Redis@2023-08-01' = {
-  name: '${appName}-cache'
+
+resource redisEnterprise 'Microsoft.Cache/redisEnterprise@2025-04-01' = {
+  name: redisCacheName
   location: location
-  properties: {
-    sku: {
-      name: 'Basic'
-      family: 'C'
-      capacity: 0
-    }
-    redisConfiguration: {}
-    enableNonSslPort: false
-    redisVersion: '6'
-    publicNetworkAccess: 'Disabled'
+  sku: {
+    name: 'MemoryOptimized_M10'
   }
+  properties: {
+    minimumTlsVersion: '1.2'
+  }
+}
+
+resource redisEnterpriseDatabase 'Microsoft.Cache/redisEnterprise/databases@2025-04-01' = {
+  name: 'default'
+  parent: redisEnterprise
+  properties: {
+    clientProtocol: 'Encrypted'
+    port: 10000
+    clusteringPolicy: 'OSSCluster'
+    evictionPolicy: 'NoEviction'
+  }
+}
+
 }
 
 // The App Service plan is configured to the B1 pricing tier
