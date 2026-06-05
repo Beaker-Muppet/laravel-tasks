@@ -281,12 +281,15 @@ resource redisEnterprise 'Microsoft.Cache/redisEnterprise@2025-04-01' = {
   sku: {
     name: 'MemoryOptimized_M10'
   }
+  identity: {
+    type: 'None'
+  }
   properties: {
     minimumTlsVersion: '1.2'
   }
 }
 
-resource redisEnterpriseDatabase 'Microsoft.Cache/redisEnterprise/databases@2024-05-01-preview' = {
+resource redisEnterpriseDatabase 'Microsoft.Cache/redisEnterprise/databases@2025-04-01' = {
   name: 'default'
   parent: redisEnterprise
   properties: {
