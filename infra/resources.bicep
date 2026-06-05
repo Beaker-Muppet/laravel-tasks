@@ -154,8 +154,8 @@ resource cachePrivateEndpoint 'Microsoft.Network/privateEndpoints@2023-04-01' = 
       {
         name: '${appName}-cache-privateEndpoint'
         properties: {
-          privateLinkServiceId: redisCache.id
-          groupIds: ['redisCache']
+          privateLinkServiceId: redisEnterprise.id
+          groupIds: ['redisEnterprise']
         }
       }
     ]
@@ -175,7 +175,7 @@ resource cachePrivateEndpoint 'Microsoft.Network/privateEndpoints@2023-04-01' = 
   }
 }
 resource privateDnsZoneCache 'Microsoft.Network/privateDnsZones@2020-06-01' = {
-  name: 'privatelink.redis.cache.windows.net'
+  name: 'privatelink.redis.azure.net'
   location: 'global'
   dependsOn: [
     virtualNetwork
@@ -438,7 +438,7 @@ resource cacheConnector 'Microsoft.ServiceLinker/linkers@2024-04-01' = {
     clientType: 'none'
     targetService: {
       type: 'AzureResource'
-      id:  resourceId('Microsoft.Cache/Redis/Databases', redisCache.name, '0')
+      id: resourceId('Microsoft.Cache/redisEnterprise/databases', redisEnterprise.name, 'default')
     }
     authInfo: {
       authType: 'accessKey'
